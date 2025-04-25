@@ -5,7 +5,7 @@ import br.edu.ifsp.prw3.av3.veiculo.DadosVeiculoParciais;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record DadosConcertoParciais(
+public record DadosConsertoParciais(
 
     @NotNull
     Long id,
@@ -19,7 +19,7 @@ public record DadosConcertoParciais(
     DadosMecanicoParciais mecanico,
     DadosVeiculoParciais veiculo
 ) {
-        public DadosConcertoParciais(Conserto conserto) {
+        public DadosConsertoParciais(Conserto conserto) {
             this(conserto.getId(),
                  conserto.getDataEntrada(),
                  conserto.getDataSaida(),

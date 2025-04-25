@@ -1,5 +1,6 @@
 package br.edu.ifsp.prw3.av3.conserto;
 
+import br.edu.ifsp.prw3.av3.mecanico.DadosMecanico;
 import br.edu.ifsp.prw3.av3.mecanico.Mecanico;
 import br.edu.ifsp.prw3.av3.veiculo.Veiculo;
 import jakarta.persistence.*;
@@ -26,6 +27,7 @@ public class Conserto {
     @Column(name = "data_saida")
     private String dataSaida;
 
+    //isso ficou MUITO feio, mas funcionou. tive problemas com nomes no db.
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "nome", column = @Column(name = "mecanico_nome")),
@@ -42,10 +44,26 @@ public class Conserto {
     })
     private Veiculo veiculo;
 
+    private Boolean ativo;
+
     public Conserto(DadosConserto dados) {
         this.dataEntrada = dados.dataEntrada();
         this.dataSaida = dados.dataSaida();
         this.mecanico = new Mecanico(dados.mecanico());
         this.veiculo = new Veiculo(dados.veiculo());
+        this.ativo = true;
+    }
+
+    public void atualizarInfo(DadosConsertoAlter dados) {
+        if (dados.dataSaida() != null) {
+            this.dataSaida = dados.dataSaida();
+        }
+        if (dados.mecanico() != null && dados.mecanico().getNome() != null) {
+            this.mecanico.atualizarInformacoes(new DadosMecanico(dados.mecanico().getNome(), dados.mecanico().getAnos()));
+        }
+    }
+
+    public void delete() {
+        this.ativo = false;
     }
 }

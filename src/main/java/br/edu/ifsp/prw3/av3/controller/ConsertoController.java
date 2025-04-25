@@ -1,9 +1,6 @@
 package br.edu.ifsp.prw3.av3.controller;
 
-import br.edu.ifsp.prw3.av3.conserto.Conserto;
-import br.edu.ifsp.prw3.av3.conserto.ConsertoRepository;
-import br.edu.ifsp.prw3.av3.conserto.DadosConcertoParciais;
-import br.edu.ifsp.prw3.av3.conserto.DadosConserto;
+import br.edu.ifsp.prw3.av3.conserto.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,8 +32,8 @@ public class ConsertoController {
     }
 
     @GetMapping("nomes-datas-etc")
-    public List<DadosConcertoParciais> listarParcial() {
-        return repository.findAll().stream().map(DadosConcertoParciais::new).toList();
+    public List<DadosConsertoParciais> listarParcial() {
+        return repository.findAll().stream().map(DadosConsertoParciais::new).toList();
     }
 
     @GetMapping("/{id}")
@@ -49,5 +46,20 @@ public class ConsertoController {
         else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosConsertoAlter dadosAlter) {
+        Conserto conserto = repository.getReferenceById(dadosAlter.id());
+        conserto.atualizarInfo(dadosAlter);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id) {
+        Conserto conserto = repository.getReferenceById(id);
+
+        conserto.delete();
     }
 }
