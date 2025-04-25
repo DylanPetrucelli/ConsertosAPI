@@ -5,11 +5,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -31,9 +31,13 @@ public class ConsertoController {
         return repository.findAll(paginacao);
     }
 
-    @GetMapping("nomes-datas-etc")
-    public List<DadosConsertoParciais> listarParcial() {
-        return repository.findAll().stream().map(DadosConsertoParciais::new).toList();
+    @GetMapping
+    @RequestMapping("nomes-datas-etc")
+    public Page<DadosConsertoParciais> listarParcial(
+            @PageableDefault
+            Pageable paginacao
+    ) {
+        return repository.findAllByAtivoTrue(paginacao).map(DadosConsertoParciais::new);
     }
 
     @GetMapping("/{id}")
