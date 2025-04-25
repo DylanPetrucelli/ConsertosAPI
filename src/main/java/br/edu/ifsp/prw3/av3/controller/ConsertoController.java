@@ -8,10 +8,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -35,5 +37,17 @@ public class ConsertoController {
     @GetMapping("nomes-datas-etc")
     public List<DadosConcertoParciais> listarParcial() {
         return repository.findAll().stream().map(DadosConcertoParciais::new).toList();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Conserto> getById(@PathVariable Long id) {
+        Optional<Conserto> consertoOptional = repository.findById(id);
+
+        if (consertoOptional.isPresent()) {
+            return ResponseEntity.ok(consertoOptional.get());
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
