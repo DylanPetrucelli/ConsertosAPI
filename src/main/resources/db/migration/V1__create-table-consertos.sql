@@ -1,5 +1,3 @@
-drop table if exists consertos;
-
 create table consertos (
     id bigint not null auto_increment,
     data_entrada varchar(10) not null,

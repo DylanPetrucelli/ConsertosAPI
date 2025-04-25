@@ -37,7 +37,8 @@ public class Conserto {
     @AttributeOverrides({
             @AttributeOverride(name = "marca", column = @Column(name = "veiculo_marca")),
             @AttributeOverride(name = "modelo", column = @Column(name = "veiculo_modelo")),
-            @AttributeOverride(name = "ano", column = @Column(name = "veiculo_ano"))
+            @AttributeOverride(name = "ano", column = @Column(name = "veiculo_ano")),
+            @AttributeOverride(name = "cor", column = @Column(name = "veiculo_cor"))
     })
     private Veiculo veiculo;
 

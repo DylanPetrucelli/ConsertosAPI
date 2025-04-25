@@ -3,6 +3,7 @@ package br.edu.ifsp.prw3.av3.controller;
 import br.edu.ifsp.prw3.av3.conserto.Conserto;
 import br.edu.ifsp.prw3.av3.conserto.ConsertoRepository;
 import br.edu.ifsp.prw3.av3.conserto.DadosConserto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class ConsertoController {
 
     @PostMapping
     @Transactional
-    public void cadastrarConserto(@RequestBody DadosConserto dados) {
+    public void cadastrarConserto(@RequestBody @Valid DadosConserto dados) {
         repository.save(new Conserto(dados));
     }
 }
