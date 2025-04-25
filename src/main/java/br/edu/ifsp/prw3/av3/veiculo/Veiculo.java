@@ -17,9 +17,15 @@ public class Veiculo {
     private String cor;
 
     public Veiculo(DadosVeiculo dados) {
-        this.marca = dados.marca();
-        this.modelo = dados.modelo();
+        if (dados.marca() != null) {
+            this.marca = dados.marca();
+        }
+        if (dados.modelo() != null) {
+            this.modelo = dados.modelo();
+        }
         this.ano = dados.ano();
-        this.cor = dados.cor();
+        if (dados.cor() != null) {
+            this.cor = dados.cor();
+        }
     }
 }
