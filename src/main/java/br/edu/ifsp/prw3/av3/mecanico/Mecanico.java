@@ -2,7 +2,6 @@ package br.edu.ifsp.prw3.av3.mecanico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
